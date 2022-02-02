@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const { v4: uuid } = require('uuid');
 
 const users = new Map()
@@ -5,8 +7,8 @@ const users = new Map()
 const tokens = new Map()
 
 const seedUserStore = () => {
-  users.set(process.env.NODE_EMAIL_ADMIN ?? "", {
-    password: process.env.NODE_PASSWORD_ADMIN ?? "",
+  users.set(process.env.NODE_EMAIL_ADMIN, {
+    password: process.env.NODE_PASSWORD_ADMIN,
     permissions: ['users.list', 'users.create', 'metrics.list'],
     roles: ['administrator']
   })
@@ -16,6 +18,7 @@ const seedUserStore = () => {
     permissions: ['users.list', 'metrics.list'],
     roles: ['editor']
   })
+
 }
 
 const createRefreshToken = (email) => {

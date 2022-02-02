@@ -3,6 +3,7 @@ const cors = require('cors');
 const express = require('express');
 
 const { checkRefreshTokenIsValid, users, seedUserStore, invalidateRefreshToken } = require('./database');
+const { generateJwtAndRefreshToken } = require('./auth');
 
 const port = process.env.PORT || 3333;
 
