@@ -1,3 +1,3 @@
 export const auth = {
-  secret: process.env.API_SECRET
+  secret: process.env.NODE_SECRET
 } as const;

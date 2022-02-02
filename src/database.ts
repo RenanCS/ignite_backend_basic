@@ -6,8 +6,8 @@ export const users: UsersStore = new Map()
 export const tokens: RefreshTokensStore = new Map()
 
 export function seedUserStore() {
-  users.set(process.env.API_EMAIL_ADMIN ?? "", {
-    password: process.env.API_PASSWORD_ADMIN ?? "",
+  users.set(process.env.NODE_EMAIL_ADMIN ?? "", {
+    password: process.env.NODE_PASSWORD_ADMIN ?? "",
     permissions: ['users.list', 'users.create', 'metrics.list'],
     roles: ['administrator']
   })
