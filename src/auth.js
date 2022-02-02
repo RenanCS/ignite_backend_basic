@@ -5,7 +5,7 @@ const { createRefreshToken } = require('./database');
 function generateJwtAndRefreshToken(email, payload = {}) {
   const token = jwt.sign(payload, auth.secret ?? "", {
     subject: email,
-    expiresIn: 5, // 15 minutes
+    expiresIn: process.env.NODE_TIME_TO_LIVE,
   });
 
   const refreshToken = createRefreshToken(email)
