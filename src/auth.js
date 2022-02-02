@@ -1,9 +1,8 @@
-import jwt from 'jsonwebtoken'
+const jwt = require('jsonwebtoken');
+const { auth } = require('./config');
+const { createRefreshToken } = require('./database');
 
-import { auth } from './config';
-import { createRefreshToken } from './database';
-
-export function generateJwtAndRefreshToken(email: string, payload: object = {}) {
+export function generateJwtAndRefreshToken(email, payload = {}) {
   const token = jwt.sign(payload, auth.secret ?? "", {
     subject: email,
     expiresIn: 5, // 15 minutes

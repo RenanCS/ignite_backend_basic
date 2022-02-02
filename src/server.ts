@@ -1,12 +1,13 @@
-import cors from 'cors';
-import express, { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken'
-import decode from 'jwt-decode'
-import { generateJwtAndRefreshToken } from './auth';
-import { auth } from './config';
+const cors = require('cors');
+const express = require('express');
+const { NextFunction, Request, Response } = require('express');
+const jwt = require('jsonwebtoken');
+const decode = require('jwt-decode');
+const { generateJwtAndRefreshToken } = require('./auth');
+const { auth } = require('./config');
 
-import { checkRefreshTokenIsValid, users, seedUserStore, invalidateRefreshToken } from './database';
-import { CreateSessionDTO, DecodedToken } from './types';
+const { checkRefreshTokenIsValid, users, seedUserStore, invalidateRefreshToken } = require('./database');
+const { CreateSessionDTO, DecodedToken } = require('./types.');
 
 const app = express();
 
@@ -81,7 +82,7 @@ app.get('/', (request: Request, response: Response) => {
 });
 
 app.post('/sessions', (request: Request, response: Response) => {
-  const { email, password } = request.body as CreateSessionDTO;
+  const { email, password } = request.body;
 
   const user = users.get(email);
 

@@ -1,11 +1,10 @@
-import { RefreshTokensStore, UsersStore } from "./types"
-import { v4 as uuid } from 'uuid'
+const { v4: uuid } = require('uuid');
 
-export const users: UsersStore = new Map()
+const users = new Map()
 
-export const tokens: RefreshTokensStore = new Map()
+const tokens = new Map()
 
-export function seedUserStore() {
+const seedUserStore = () => {
   users.set(process.env.NODE_EMAIL_ADMIN ?? "", {
     password: process.env.NODE_PASSWORD_ADMIN ?? "",
     permissions: ['users.list', 'users.create', 'metrics.list'],
@@ -19,7 +18,7 @@ export function seedUserStore() {
   })
 }
 
-export function createRefreshToken(email: string) {
+const createRefreshToken = (email) => {
   const currentUserTokens = tokens.get(email) ?? []
   const refreshToken = uuid()
 
@@ -28,14 +27,16 @@ export function createRefreshToken(email: string) {
   return refreshToken;
 }
 
-export function checkRefreshTokenIsValid(email: string, refreshToken: string) {
+const checkRefreshTokenIsValid = (email, refreshToken) => {
   const storedRefreshTokens = tokens.get(email) ?? []
 
   return storedRefreshTokens.some(token => token === refreshToken)
 }
 
-export function invalidateRefreshToken(email: string, refreshToken: string) {
+const invalidateRefreshToken = (email, refreshToken) => {
   const storedRefreshTokens = tokens.get(email) ?? []
 
   tokens.set(email, storedRefreshTokens.filter(token => token !== refreshToken));
 }
+
+module.exports = { invalidateRefreshToken, checkRefreshTokenIsValid, createRefreshToken, seedUserStore, tokens, users }
