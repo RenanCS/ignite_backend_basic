@@ -76,7 +76,11 @@ function addUserInformationToRequest(request: Request, response: Response, next:
   }
 }
 
-app.post('/sessions', (request, response) => {
+app.get('/', (request: Request, response: Response) => {
+  return response.send("Backend rodando");
+});
+
+app.post('/sessions', (request: Request, response: Response) => {
   const { email, password } = request.body as CreateSessionDTO;
 
   const user = users.get(email);
@@ -103,7 +107,7 @@ app.post('/sessions', (request, response) => {
   });
 });
 
-app.post('/refresh', addUserInformationToRequest, (request, response) => {
+app.post('/refresh', addUserInformationToRequest, (request: Request, response: Response) => {
   const email = request.user;
   const { refreshToken } = request.body;
 
