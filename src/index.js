@@ -4,6 +4,10 @@ const express = require('express');
 
 const { checkRefreshTokenIsValid, users, seedUserStore, invalidateRefreshToken } = require('./database');
 const { generateJwtAndRefreshToken } = require('./auth');
+const { auth } = require('./config');
+
+const jwt = require('jsonwebtoken');
+const decode = require('jwt-decode');
 
 const port = process.env.PORT || 3333;
 
@@ -31,8 +35,8 @@ function checkAuthMiddleware(request, response, next) {
     }
 
     try {
-        const decoded = jwt.verify(String(token), auth.secret ?? "");
 
+        const decoded = jwt.verify(String(token), auth.secret);
         request.user = decoded.sub;
 
         return next();
